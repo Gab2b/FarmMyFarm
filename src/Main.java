@@ -1,5 +1,9 @@
+import Game.Field;
+import Game.Resource;
+import Game.Loop;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        Loop.main(args);
     }
 }
