@@ -1,5 +1,3 @@
-import Game.Field;
-import Game.Resource;
 import Game.Loop;
 
 public class Main {

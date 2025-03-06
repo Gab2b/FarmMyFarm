@@ -9,10 +9,10 @@ public class Resource {
 
     public String name;
     public String description;
-    private String pathToImg;
-    private int price;
-    private long timeToRecolt;
-    private Date recoltCompletionTime;
+    protected String pathToImg;
+    protected int price;
+    protected long timeToRecolt;
+    protected Date recoltCompletionTime;
 
     // SETTERS
 
@@ -28,7 +28,7 @@ public class Resource {
 
     // CONSTRUCTEUR
 
-    void Resource(String name, String description, int price, String pathToImg) {
+    public Resource(String name, String description, int price, String pathToImg) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -58,7 +58,27 @@ public class Resource {
         }
     }
 
-
-
 }
 
+class Wheat extends Resource {
+    public Wheat() {
+        super("Wheat", "A common grain crop used to make bread and animal feed. Grows in fields and is harvested for its golden seeds." , 5 , "../data/resources/infoCards/wheat.png");
+    }
+}
+class RedBeet extends Resource {
+    public RedBeet() {
+        super("Red Beet", "A root vegetable with a deep red color. Grown underground and used in salads, soups, and animal feed." , 15 , "../data/resources/infoCards/redbeet.png");
+    }
+}
+
+class Carrot extends Resource {
+    public Carrot() {
+        super("Carrot", "A root vegetable, typically orange, that grows underground. Used in meals, juices, and often as animal feed.", 35, "../data/resources/infoCards/carrot.png");
+    }
+}
+
+class Seeds extends Resource {
+    public Seeds() {
+        super("Small Seeds", "Small seeds planted to grow crops like wheat or corn, mainly used to feed chickens on the farm.", 5, "../data/resources/infoCards/seeds.png");
+    }
+}
