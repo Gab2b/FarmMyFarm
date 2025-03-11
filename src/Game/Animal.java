@@ -13,7 +13,10 @@ public class Animal extends Resource {
     protected boolean isDead;
     protected Resource nourishment;
 
+
     // SETTERS
+
+
 
     // GETTERS
 
@@ -24,14 +27,20 @@ public class Animal extends Resource {
     // CONSTRUCTEUR
 
     public Animal(String name, String description, int price, String pathToImg, Resource  nourishment) {
-        super(name, description, price, pathToImg);
+        super(name, description, price, pathToImg, false);
         this.nourishment = nourishment;
+        isFed = true;
+        lastTimeFed = new Date();
+        setCompletionTime(1);
     }
 
     // METHODES
 
     String getRemainingTime(){
         long remainingTime = recoltCompletionTime.getTime() - new Date().getTime();
+        System.out.println("Remaining time: " + remainingTime);
+        System.out.println("Remaining time: " + recoltCompletionTime);
+        System.out.println("Remaining time: " + new Date().getTime());
         long hours = TimeUnit.SECONDS.toHours(remainingTime);
         long minutes = TimeUnit.SECONDS.toMinutes(remainingTime) % 60;
         long seconds = remainingTime % 60;
@@ -55,15 +64,20 @@ public class Animal extends Resource {
         if (isDead) {
             System.out.println("Animal is dead you can't feed him");
         }
-        else  {
+        else if (isFed) {
+            System.out.println("Animal is feeding");
             boolean nourishmentInInventory = false;
+            System.out.println("Inv before that loop" + inventory);
             for (int i = 0; i < inventory.size(); i++) {
-                if (inventory.get(i) == nourishment) {
+                    System.out.println("Nourishment in loop vs we got: " + inventory.get(i).getClass() + nourishment.getClass());
+                if (inventory.get(i).getClass() == nourishment.getClass()) {
                     nourishmentInInventory = true;
-                    i = inventory.size();
+                    inventory.remove(i);
+                    System.out.println("Ending here");
+                    break;
                 }
             }
-            inventory.remove(nourishment);
+            System.out.println("Inv after that loop" + inventory);
             isFed = true;
             lastTimeFed = new Date();
         }
@@ -77,22 +91,27 @@ public class Animal extends Resource {
 
     }
 
+    @Override
+    boolean isReady() {
+        return isFed && lastTimeFed.getTime() - new Date().getTime() > TimeUnit.SECONDS.toMillis(10);
+    }
+
 }
 
 class Cow extends Animal {
-    public Cow(Resource wheat) {
-        super("Cow", "A large farm animal raised for its milk, meat, and leather. Cows are essential for producing dairy products like cheese and butter.", 300, "../data/resources/infoCards/cow.png", wheat);
+    public Cow() {
+        super("Cow", "A large farm animal raised for its milk, meat, and leather. Cows are essential for producing dairy products like cheese and butter.", 300, "healthyCows", new Wheat());
     }
 }
 
 class Pig extends Animal {
-    public Pig(Resource carrot) {
-        super("Pig", "A farm animal raised for meat (pork) and sometimes for its leather. Pigs are known for being intelligent and often live in pens.", 100, "../data/resources/infoCards/pig.png", carrot);
+    public Pig() {
+        super("Pig", "A farm animal raised for meat (pork) and sometimes for its leather. Pigs are known for being intelligent and often live in pens.", 100, "healthyPigs", new Carrot());
     }
 }
 
 class Chicken extends Animal {
-    public Chicken(Resource seeds) {
-        super("Chicken", "A common farm animal raised for its eggs and meat. Chickens are easy to care for and lay eggs daily.", 40, "../data/resources/infoCards/cow.png", seeds);
+    public Chicken() {
+        super("Chicken", "A common farm animal raised for its eggs and meat. Chickens are easy to care for and lay eggs daily.", 40, "healthyChickens", new Seeds());
     }
 }

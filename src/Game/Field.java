@@ -14,6 +14,7 @@ public class Field {
     private boolean isBought = false;
     private boolean isFilled = false;
     private String pathToImg;
+    private Resource resourceFilled;
 
     // SETTERS
 
@@ -25,23 +26,34 @@ public class Field {
         isBought = newState;
     }
 
-    void setFilled (boolean newState) {
+    void setFilled (boolean newState, Resource newResource) {
         isFilled = newState;
-
+        resourceFilled = newResource;
     }
 
     // GETTERS
 
-    String getProperties(){
+    public String getProperties(){
         return pathToImg;
     }
 
+    public Resource getResource() {
+        return resourceFilled;
+    }
+
+    public String getResourceFilled() {
+        return resourceFilled.getName();
+    }
+
+    public boolean isFilled(){return isFilled;}
+
     // CONSTRUCTEUR
 
-    void Field(int x, int y, int price, String pathToImg) {
+    public Field(int x, int y, int price, boolean isOwned, String pathToImg) {
         this.xcords = x;
         this.ycords = y;
         this.price = price;
+        this.isBought = isOwned;
         this.pathToImg = pathToImg;
     }
 }

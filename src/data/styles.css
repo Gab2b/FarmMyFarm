@@ -5,6 +5,114 @@
 
 .label {
     -fx-font-family: 'Jersey 10';
-    -fx-font-size: 25px;
     -fx-text-fill: #333333;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, black, 2, 0, 0, 0);
+    -fx-font-size: 30px;
+}
+
+.warning {
+    -fx-text-fill: red;
+    -fx-font-size: 50px;
+    -fx-effect: dropshadow(gaussian, black, 3, 0, 0, 0);
+}
+
+.choiceLabel {
+    -fx-font-size: 20px;
+}
+
+.selectCombobox {
+    -fx-font-size: 11px;
+}
+
+.emptyPane {
+    -fx-background-image: url('resources/places/empty.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.ownedField {
+    -fx-background-image: url('resources/places/field.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.filledField {
+    -fx-background-image: url('resources/places/filledField.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.carrotAlmostGrown {
+    -fx-background-image: url('resources/places/carrotAlmostGrown.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.carrotGrown {
+    -fx-background-image: url('resources/places/carrotGrown.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.redBeetAlmostGrown {
+    -fx-background-image: url('resources/places/redBeetAlmostGrown.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.redBeetGrown {
+    -fx-background-image: url('resources/places/redBeetGrown.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.wheatAlmostGrown {
+    -fx-background-image: url('resources/places/wheatAlmostGrown.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.wheatGrown {
+    -fx-background-image: url('resources/places/wheatGrown.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.healthyChickens {
+    -fx-background-image: url('resources/places/healthyChickens.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.hungryChickens {
+    -fx-background-image: url('resources/places/hungryChickens.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.noChickens {
+    -fx-background-image: url('resources/places/noChickens.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.healthyPigs {
+    -fx-background-image: url('resources/places/healthyPigs.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.hungryPigs {
+    -fx-background-image: url('resources/places/hungryPigs.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.noPigs {
+    -fx-background-image: url('resources/places/noPigs.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.healthyCows {
+    -fx-background-image: url('resources/places/healthyCows.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.hungryCows {
+    -fx-background-image: url('resources/places/hungryCows.jpeg');
+    -fx-background-size: 100% 100%;
+}
+.noCows {
+    -fx-background-image: url('resources/places/noCows.jpeg');
+    -fx-background-size: 100% 100%;
+}
+
+.topinterface {
+    -fx-background-color: rgb(191, 138, 63);
+    -fx-background-size: cover;
+}
+
+#farmmyfarmlogo {
+    -fx-background-image: url('resources/interface/logo.png');
+    -fx-background-size: cover;
 }
