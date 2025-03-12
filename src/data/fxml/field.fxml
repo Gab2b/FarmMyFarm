@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="350.0" prefWidth="250.0" styleClass="topinterface" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game.Loop">
+<AnchorPane prefHeight="385.0" prefWidth="251.0" styleClass="topinterface" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game.Loop">
    <children>
        <Label layoutX="6.0" prefHeight="85.0" prefWidth="238.0" text="What do you want to do with that field ?" textAlignment="CENTER" wrapText="true" />
        <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="83.0" prefHeight="32.0" prefWidth="250.0" styleClass="choiceLabel, warning" textAlignment="CENTER" wrapText="true" />
@@ -14,7 +14,7 @@
            <items>
                <FXCollections fx:factory="observableArrayList">
                    <String fx:value="Wheat" />
-                   <String fx:value="Red Beet" />
+                   <String fx:value="RedBeet" />
                    <String fx:value="Carrot" />
                </FXCollections>
            </items>
@@ -22,7 +22,7 @@
        <Button fx:id="confirmPlant" layoutX="186.0" layoutY="150.0" mnemonicParsing="false" styleClass="selectCombobox" text="Plant" />
        <Label layoutX="30.0" layoutY="190.0" prefHeight="32.0" prefWidth="191.0" styleClass="choiceLabel" text="2. Recolt ressources" />
        <Button fx:id="confirmRetrieve" layoutX="83.0" layoutY="225.0" mnemonicParsing="false" text="Retrieve" />
-       <Label layoutX="31.0" layoutY="265.0" prefHeight="32.0" prefWidth="160.0" styleClass="choiceLabel" text="3. Build an enclosure" />
+       <Label layoutX="31.0" layoutY="265.0" prefHeight="32.0" prefWidth="191.0" styleClass="choiceLabel" text=" 3. Caring for an animal" />
        <ComboBox fx:id="selectAnimals" layoutX="17.0" layoutY="300.0" prefHeight="24.0" prefWidth="160.0" promptText="Select the animal" styleClass="selectCombobox">
            <items>
                <FXCollections fx:factory="observableArrayList">
@@ -33,5 +33,6 @@
            </items>
        </ComboBox>
        <Button fx:id="confirmRaise" layoutX="188.0" layoutY="300.0" mnemonicParsing="false" styleClass="selectCombobox" text="Raise" />
+       <Button fx:id="confirmFeed" layoutX="95.0" layoutY="340.0" mnemonicParsing="false" styleClass="selectCombobox" text="Feed !" />
    </children>
 </AnchorPane>

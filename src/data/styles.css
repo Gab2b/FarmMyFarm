@@ -26,6 +26,71 @@
     -fx-font-size: 11px;
 }
 
+.inventory {
+    -fx-background-image: url('resources/interface/item.png');
+    -fx-background-size: 100% 100%;
+}
+
+.item-carrotAlmostGrown {
+    -fx-background-image: url('resources/places/carrotGrown.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-redBeetAlmostGrown {
+    -fx-background-image: url('resources/places/redBeetGrown.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-wheatAlmostGrown {
+    -fx-background-image: url('resources/places/wheatGrown.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-healthyCows {
+    -fx-background-image: url('resources/places/healthyCows.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-filledField {
+    -fx-background-image: url('resources/places/filledField.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-healthyPigs {
+    -fx-background-image: url('resources/places/healthyPigs.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-healthyChickens {
+    -fx-background-image: url('resources/places/healthyChickens.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-milk {
+    -fx-background-image: url('resources/places/milk.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-eggs {
+    -fx-background-image: url('resources/places/eggs.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.item-manure {
+    -fx-background-image: url('resources/places/manure.jpeg');
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
 .emptyPane {
     -fx-background-image: url('resources/places/empty.jpeg');
     -fx-background-size: 100% 100%;

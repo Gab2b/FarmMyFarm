@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="225.0" prefWidth="400.0" styleClass="topinterface" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game.Loop">
+   <children>
+       <ComboBox fx:id="sellSelect" layoutX="6.0" layoutY="179.0" prefHeight="24.0" prefWidth="150.0" promptText="Select resource">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="Wheat" />
+                   <String fx:value="RedBeet" />
+                   <String fx:value="Carrot" />
+                   <String fx:value="Milk" />
+                   <String fx:value="Manure" />
+                   <String fx:value="Eggs" />
+               </FXCollections>
+           </items>
+       </ComboBox>
+       <ComboBox fx:id="buySelect" layoutX="6.0" layoutY="137.0" prefWidth="150.0" promptText="Select resource">
+       <items>
+           <FXCollections fx:factory="observableArrayList">
+               <String fx:value="Wheat" />
+               <String fx:value="RedBeet" />
+               <String fx:value="Carrot" />
+               <String fx:value="Seeds" />
+               <String fx:value="Cow" />
+               <String fx:value="Pig" />
+               <String fx:value="Chicken" />
+           </FXCollections>
+       </items>
+       </ComboBox>
+       <ComboBox fx:id="sellAmount" disable="true" layoutX="165.0" layoutY="179.0" prefHeight="24.0" prefWidth="100.0" promptText="Amount">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="1" />
+                   <String fx:value="2" />
+                   <String fx:value="5" />
+                   <String fx:value="10" />
+                   <String fx:value="20" />
+                   <String fx:value="50" />
+                   <String fx:value="100" />
+               </FXCollections>
+           </items>
+       </ComboBox>
+      <Label fx:id="sellConfirm" layoutX="342.0" layoutY="175.0" prefHeight="32.0" prefWidth="44.0" text="Sell" />
+      <Label fx:id="buyConfirm" layoutX="342.0" layoutY="133.0" prefHeight="32.0" prefWidth="44.0" text="Buy " />
+      <ImageView fitHeight="89.0" fitWidth="125.0" layoutX="156.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../resources/interface/shop.png" />
+              </image>
+      </ImageView>
+      <ComboBox fx:id="buyAmount" disable="true" layoutX="165.0" layoutY="137.0" prefHeight="24.0" prefWidth="100.0" promptText="Amount">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="1" />
+                  <String fx:value="2" />
+                  <String fx:value="5" />
+                  <String fx:value="10" />
+                  <String fx:value="20" />
+                  <String fx:value="50" />
+                  <String fx:value="100" />
+              </FXCollections>
+          </items>
+      </ComboBox>
+      <Label fx:id="storePrompt" alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="90.0" styleClass="label, choiceLabel" text="Welcome to the store !" textAlignment="CENTER" />
+      <Label fx:id="buyPrice" layoutX="273.0" layoutY="133.0" prefHeight="32.0" prefWidth="56.0" styleClass="choiceLabel" text="0 💰" />
+      <Label fx:id="sellPrice" layoutX="273.0" layoutY="175.0" prefHeight="32.0" prefWidth="56.0" styleClass="choiceLabel" text="0 💰" />
+   </children>
+</AnchorPane>

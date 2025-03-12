@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
     static int playerNumber = 1;
     protected int id;
-    protected int coin;
+    protected int coin = 100;
     protected ArrayList<Resource> ownedResources = new ArrayList<Resource>();
     protected ArrayList<Field> ownedFields = new ArrayList<Field>();
 
@@ -37,14 +37,13 @@ public class Player {
         }
     }
 
-    public void buyThisResource(Resource newResource, int price) {
+    public boolean buyThisResource(ArrayList<Resource> newResources, int price) {
         if (canPayThis(price)) {
             coin -= price;
-            ownedResources.add(newResource);
+            ownedResources.addAll(newResources);
+            return true;
         }
-        else {
-            System.out.println("You don't have enough money!");
-        }
+        return false;
     }
 
     public void showInfos() {
@@ -63,7 +62,32 @@ public class Player {
         return false;
     }
 
+    public boolean gotTheseResources(ArrayList<Resource> resources) {
+        ArrayList<Resource> availableResources = new ArrayList<>(ownedResources);
+
+        for (int i = 0; i < resources.size(); i++) {
+            boolean resourcesFound = false;
+            for (int j = 0; j < availableResources.size(); j++) {
+                if (availableResources.get(j).getName().equals(resources.get(i).getName())) {
+                    availableResources.remove(j);
+                    resourcesFound = true;
+                    break;
+                }
+            }
+            if (!resourcesFound) {
+                return false;
+            }
+        }
+
+        ownedResources = new ArrayList<>(availableResources);
+        return true;
+    }
+
     public void addResource(Resource newResource) {
         ownedResources.add(newResource);
+    }
+
+    public void addResources(ArrayList<Resource> newResources) {
+        ownedResources.addAll(newResources);
     }
 }

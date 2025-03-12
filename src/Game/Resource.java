@@ -13,8 +13,9 @@ public abstract class Resource {
     protected String pathToImg;
     protected int price;
     protected boolean isSaleable;
-    protected long timeToRecolt;
     protected Date recoltCompletionTime;
+    protected boolean retrieveState = false;
+    protected int timeToRecoltInMinutes;
 
     // SETTERS
 
@@ -31,8 +32,15 @@ public abstract class Resource {
         return pathToImg;
     }
 
+    String getGrownOne(){
+        return pathToImg.substring(0, pathToImg.indexOf("Almost")) + "Grown";}
+
     String getName() {
         return name;
+    }
+
+    int getTimeToRecoltInMinutes() {
+        return timeToRecoltInMinutes;
     }
 
     // CONSTRUCTEUR
@@ -43,11 +51,14 @@ public abstract class Resource {
         this.price = price;
         this.pathToImg = pathToImg;
         this.isSaleable = isSaleable;
+        this.timeToRecoltInMinutes = 1;
+        setCompletionTime(this.timeToRecoltInMinutes);
     }
 
     // METHODES
 
     abstract boolean isReady();
+    abstract boolean reduceNumberOfResources();
 
     static void resourceFromFile(String resource, int quantity, ArrayList<Resource> ownedResources) {
         for (int i = 0; i < quantity; i++) {
@@ -77,36 +88,37 @@ public abstract class Resource {
         }
     }
 
-
     String getRemainingTime(){
         long remainingTime = recoltCompletionTime.getTime() - new Date().getTime();
+
         if (remainingTime <= 0) {
+            retrieveState = true;
             return "Time's up";
         }
 
         long hours = TimeUnit.MILLISECONDS.toHours(remainingTime);
         long minutes = TimeUnit.MILLISECONDS.toMinutes(remainingTime) % 60;
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(remainingTime) % 60;
+        long seconds = (remainingTime/1000) % 60;
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
-    }
-
-    String printRemainingTime(){
-        String remainingTime = getRemainingTime();
-        if (Integer.parseInt(remainingTime.substring(0, 2)) == 0 && Integer.parseInt(remainingTime.substring(3,5)) == 0) {
-            if (Integer.parseInt(remainingTime.substring(6,8)) <= 9) {
-                return String.format("0%d seconds remaining", Integer.parseInt(remainingTime.substring(6,8)));
-            }
-            else {
-                return String.format("%d seconds remaining", Integer.parseInt(remainingTime.substring(6,8)));
-            }
-        } else if (Integer.parseInt(remainingTime.substring(0, 2)) == 0) {
-            return String.format("%d:%d time remaining", Integer.parseInt(remainingTime.substring(0, 2)), Integer.parseInt(remainingTime.substring(6,8)));
+        if (hours == 0 && minutes == 0) {
+            return String.format("%02d seconds remaining", seconds);
+        } else if (hours == 0) {
+            return String.format("%02d:%02d time remaining", minutes, seconds);
         }
         else {
-            return String.format("%d hour and %d:%d time", Integer.parseInt(remainingTime.substring(0, 2)), Integer.parseInt(remainingTime.substring(3,5)), Integer.parseInt(remainingTime.substring(6,8)));
+            return String.format("%d hour(s) and %02d:%02d time remaining", hours, minutes, seconds);
         }
     }
+
+    boolean checkIfReady() {
+        if (getRemainingTime().equals("Time's up")) {
+            retrieveState = true;
+            return true;
+        }
+        return false;
+    }
+
+    abstract ArrayList<Resource> returnResources();
 
 }
 
@@ -116,10 +128,25 @@ class Wheat extends Resource {
     }
 
     @Override
+    ArrayList<Resource> returnResources() {
+        ArrayList<Resource> resources = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            resources.add(new Wheat());
+        }
+        return resources;
+    }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
     boolean isReady() {
-        return getRemainingTime().equals("Wheat");
+        return getRemainingTime().equals("Time's up");
     }
 }
+
 class RedBeet extends Resource {
     public RedBeet() {
         super("RedBeet", "A root vegetable with a deep red color. Grown underground and used in salads, soups, and animal feed." , 15 , "redBeetAlmostGrown", false);
@@ -128,6 +155,20 @@ class RedBeet extends Resource {
     @Override
     boolean isReady() {
         return true;
+    }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        ArrayList<Resource> resources = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            resources.add(new RedBeet());
+        }
+        return resources;
     }
 }
 
@@ -140,15 +181,39 @@ class Carrot extends Resource {
     boolean isReady() {
         return true;
     }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        ArrayList<Resource> resources = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            resources.add(new Carrot());
+        }
+        return resources;
+    }
 }
 
 class Seeds extends Resource {
     public Seeds() {
-        super("Seeds", "Small seeds planted to grow crops like wheat or corn, mainly used to feed chickens on the farm.", 5, "", false);
+        super("Seeds", "Small seeds planted to grow crops like wheat or corn, mainly used to feed chickens on the farm.", 5, "filledField", false);
     }
 
     @Override
     boolean isReady() {
         return true;
+    }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        return new ArrayList<>();
     }
 }

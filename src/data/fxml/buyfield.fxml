@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="277.0" prefWidth="251.0" styleClass="topinterface" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game.Loop">
+    <children>
+        <Label layoutX="7.0" layoutY="23.0" prefHeight="126.0" prefWidth="238.0" text="This field cost 100 💰, do you want do you want to buy it ?" textAlignment="CENTER" wrapText="true" />
+        <Button fx:id="newButton" layoutX="75.0" layoutY="175.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="102.0" text="YES !!" />
+        <Label fx:id="newLabel" disable="true" layoutX="7.0" layoutY="229.0" prefHeight="45.0" prefWidth="238.0" text="You don't have enough money" textAlignment="CENTER" />
+    </children>
+</AnchorPane>

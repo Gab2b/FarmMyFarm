@@ -4,24 +4,35 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 
-public class Animal extends Resource {
+public abstract class Animal extends Resource {
 
     // ATTRIBUTS
 
-    protected boolean isFed;
-    protected Date lastTimeFed;
-    protected boolean isDead;
+    protected boolean isFed = true;
+    protected Date lastTimeFed = new Date();
+    protected boolean isDead = false;
     protected Resource nourishment;
-
+    protected int numberOfResources = 1;
 
     // SETTERS
 
 
-
     // GETTERS
+
+    int getNumberOfResources() {
+        return numberOfResources;
+    }
 
     String getProperties(){
         return this.pathToImg;
+    }
+
+    boolean isAlive()  {
+        return isDead;
+    }
+
+    boolean isFed() {
+        return isFed;
     }
 
     // CONSTRUCTEUR
@@ -29,71 +40,62 @@ public class Animal extends Resource {
     public Animal(String name, String description, int price, String pathToImg, Resource  nourishment) {
         super(name, description, price, pathToImg, false);
         this.nourishment = nourishment;
-        isFed = true;
-        lastTimeFed = new Date();
-        setCompletionTime(1);
+        this.timeToRecoltInMinutes = 2;
+        setCompletionTime(this.timeToRecoltInMinutes);
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        return null;
     }
 
     // METHODES
 
-    String getRemainingTime(){
-        long remainingTime = recoltCompletionTime.getTime() - new Date().getTime();
-        System.out.println("Remaining time: " + remainingTime);
-        System.out.println("Remaining time: " + recoltCompletionTime);
-        System.out.println("Remaining time: " + new Date().getTime());
-        long hours = TimeUnit.SECONDS.toHours(remainingTime);
-        long minutes = TimeUnit.SECONDS.toMinutes(remainingTime) % 60;
-        long seconds = remainingTime % 60;
-
-        if (hours == 0 && minutes == 0) {
-            if (seconds <= 9) {
-                return String.format("0%d seconds remaining", seconds);
-            }
-            else {
-                return String.format("%d seconds remaining", seconds);
-            }
-        } else if (hours == 0) {
-            return String.format("%d:%d time remaining", hours, seconds);
-        }
-        else {
-            return String.format("%d hour and %d:%d time remaining", hours, minutes, seconds);
-        }
+    boolean reduceNumberOfResources() {
+        numberOfResources = numberOfResources - 1;
+        return numberOfResources == 0;
     }
 
-    void feed(ArrayList<Resource> inventory) {
+    boolean feed(ArrayList<Resource> inventory) {
         if (isDead) {
             System.out.println("Animal is dead you can't feed him");
+            return false;
         }
-        else if (isFed) {
-            System.out.println("Animal is feeding");
-            boolean nourishmentInInventory = false;
-            System.out.println("Inv before that loop" + inventory);
+        else if (!isFed) {
             for (int i = 0; i < inventory.size(); i++) {
-                    System.out.println("Nourishment in loop vs we got: " + inventory.get(i).getClass() + nourishment.getClass());
                 if (inventory.get(i).getClass() == nourishment.getClass()) {
-                    nourishmentInInventory = true;
                     inventory.remove(i);
-                    System.out.println("Ending here");
-                    break;
+                    isFed = true;
+                    lastTimeFed = new Date();
+                    return true;
                 }
             }
-            System.out.println("Inv after that loop" + inventory);
-            isFed = true;
-            lastTimeFed = new Date();
         }
+        return false;
     }
 
-    void checkIsAlive() {
-        if (lastTimeFed.getTime() - new Date().getTime() > TimeUnit.MINUTES.toMillis(1))
+    boolean checkIfHungry() {
+            System.out.println(lastTimeFed.getTime());
+            System.out.println(new Date().getTime() - lastTimeFed.getTime());
+            System.out.println(TimeUnit.MINUTES.toMillis(1));
+        if ((new Date().getTime() - lastTimeFed.getTime()) > TimeUnit.MINUTES.toMillis(1))
         {
-            isDead = true;
+            isFed = false;
+            if ((new Date().getTime() - lastTimeFed.getTime()) > TimeUnit.MINUTES.toMillis(2)) {
+                isDead = true;
+            }
+            return true;
         }
-
+        return false;
     }
+
+    abstract Resource retrieveResource();
+
+    abstract Animal retrieveAnimal();
 
     @Override
     boolean isReady() {
-        return isFed && lastTimeFed.getTime() - new Date().getTime() > TimeUnit.SECONDS.toMillis(10);
+        return checkIfReady();
     }
 
 }
@@ -102,16 +104,103 @@ class Cow extends Animal {
     public Cow() {
         super("Cow", "A large farm animal raised for its milk, meat, and leather. Cows are essential for producing dairy products like cheese and butter.", 300, "healthyCows", new Wheat());
     }
+
+    Resource retrieveResource() {
+        return new Milk();
+    }
+    Animal retrieveAnimal() {
+        return new Cow();
+    }
+
 }
 
 class Pig extends Animal {
     public Pig() {
         super("Pig", "A farm animal raised for meat (pork) and sometimes for its leather. Pigs are known for being intelligent and often live in pens.", 100, "healthyPigs", new Carrot());
     }
+
+    Resource retrieveResource() {
+        return new Manure();
+    }
+    Animal retrieveAnimal() {
+        return new Pig();
+    }
+
 }
 
 class Chicken extends Animal {
     public Chicken() {
         super("Chicken", "A common farm animal raised for its eggs and meat. Chickens are easy to care for and lay eggs daily.", 40, "healthyChickens", new Seeds());
+    }
+
+    Resource retrieveResource() {
+        return new Eggs();
+    }
+    Animal retrieveAnimal() {
+        return new Chicken();
+    }
+
+}
+
+class Milk extends Resource {
+    public Milk() {
+        super("Milk", "Freshly picked milk, straight from the cow. Pure, natural, and packed with nutrients—just like it was meant to be.", 0, "milk", false);
+    }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        return null;
+    }
+
+    @Override
+    boolean isReady() {
+        return retrieveState;
+    }
+}
+
+class Manure extends Resource {
+    public Manure() {
+        super("Manure", "Manure is animal waste used as fertilizer to enrich soil and promote plant growth.", 0, "manure", false);
+    }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        return null;
+    }
+
+    @Override
+    boolean isReady() {
+        return retrieveState;
+    }
+}
+
+class Eggs extends Resource {
+    public Eggs() {
+        super("Eggs", "Eggs are the oval reproductive bodies produced by birds, commonly used as food.", 0, "eggs", false);
+    }
+
+    @Override
+    boolean reduceNumberOfResources() {
+        return false;
+    }
+
+    @Override
+    ArrayList<Resource> returnResources() {
+        return null;
+    }
+
+    @Override
+    boolean isReady() {
+        return retrieveState;
     }
 }

@@ -56,6 +56,10 @@ public class Initialization {
                 else {
                     activeFields.add(new Field(0,0,0,true,"ownedField"));
                     Main.activePlayer.addResource(new Wheat());
+                    Main.activePlayer.addResource(new Wheat());
+                    Main.activePlayer.addResource(new Wheat());
+                    Main.activePlayer.addResource(new Wheat());
+                    Main.activePlayer.addResource(new Wheat());
                     Main.activePlayer.addResource(new RedBeet());
                     Main.activePlayer.addResource(new Carrot());
                     Main.activePlayer.addResource(new Chicken());
