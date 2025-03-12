@@ -126,8 +126,6 @@ public class Loop extends Application{
 
             pane.setOnMouseClicked(event -> {
                 if (Main.activeFields.size()-1 >= paneIndex) {
-                    System.out.println(Main.activeFields.get(paneIndex));
-                    System.out.println(pane.getStyleClass());
                     try {
                         FXMLLoader fieldLoader = new FXMLLoader(getClass().getResource("../data/fxml/field.fxml"));
                         Parent fieldRoot = fieldLoader.load();
@@ -150,7 +148,6 @@ public class Loop extends Application{
                                             fieldStage.close();
                                         }
                                     } else {
-                                        System.out.println(Main.activePlayer.ownedResources);
                                         fieldController.warningLabel.setText("You don't have that seed");
                                     }
                                 } else {
@@ -214,7 +211,6 @@ public class Loop extends Application{
                                             }
                                         }
                                     } else {
-                                        System.out.println(Main.activeFields.get(paneIndex).getResource().isReady());
                                         if (Main.activeFields.get(paneIndex).getResource().isReady()) {
                                             Main.activePlayer.addResources(Main.activeFields.get(paneIndex).getResource().returnResources());
                                             Main.activeFields.get(paneIndex).setFilled(false, null);
@@ -276,9 +272,23 @@ public class Loop extends Application{
                         Loop fieldController = fieldLoader.getController();
                         Stage fieldStage = new Stage();
 
+                        fieldController.newButton.setOnAction(e -> {
+                            Field newField = new Field(GridPane.getRowIndex(controller.gamegrid.getChildren().get(paneIndex)),GridPane.getColumnIndex(controller.gamegrid.getChildren().get(paneIndex)), 100, true, "ownedField");
+                            if (Main.activePlayer.buyThisField(newField)) {
+                                pane.getStyleClass().remove("emptyPane");
+                                Main.activeFields.add(newField);
+                                pane.getStyleClass().add(Main.activeFields.get(paneIndex).getProperties());
+                                fieldStage.close();
+                            } else {
+                                fieldController.newLabel.setVisible(true);
+                            }
+                        });
 
+                        fieldStage.setScene(fieldScene);
+                        fieldStage.setTitle("Unknown Field " + (paneIndex+1));
+                        fieldStage.show();
                     }
-                    catch (NullPointerException | IOException ex){
+                    catch ( IOException ex){
                         System.out.println(ex.getMessage());
                     }
                 }
@@ -523,10 +533,8 @@ public class Loop extends Application{
                     }
                 }
                 else {
-                    System.out.println(field.getResource().getProperties());
                     Animal animal = (Animal) field.getResource();
                     if (animal.checkIfHungry()) {
-                        System.out.println("isReady");
                         controller.gamegrid.getChildren().get(i).getStyleClass().clear();
                         controller.gamegrid.getChildren().get(i).getStyleClass().add("ownedField");
                         if (animal.isAlive())

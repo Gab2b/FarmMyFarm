@@ -18,14 +18,6 @@ public class Field {
 
     // SETTERS
 
-    void setDiscovered (boolean newState) {
-        isDiscovered = newState;
-    }
-
-    void setBought (boolean newState) {
-        isBought = newState;
-    }
-
     void setFilled (boolean newState, Resource newResource) {
         isFilled = newState;
         resourceFilled = newResource;
@@ -47,6 +39,9 @@ public class Field {
 
     public boolean isFilled(){return isFilled;}
 
+    public int getPrice() {
+        return price;
+    }
     // CONSTRUCTEUR
 
     public Field(int x, int y, int price, boolean isOwned, String pathToImg) {

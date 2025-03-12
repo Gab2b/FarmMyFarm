@@ -21,20 +21,19 @@ public class Player {
     }
 
     public boolean canPayThis(int price) {
-        if (coin > price) {
+        if (coin >= price) {
             return true;
         }
         return false;
     }
 
-    public void buyThisField(Field newField, int price) {
-        if (canPayThis(price)) {
-            coin -= price;
+    public boolean buyThisField(Field newField) {
+        if (canPayThis(newField.getPrice())) {
+            coin -= newField.getPrice();
             ownedFields.add(newField);
+            return true;
         }
-        else {
-            System.out.println("You don't have enough money!");
-        }
+        return false;
     }
 
     public boolean buyThisResource(ArrayList<Resource> newResources, int price) {
@@ -44,13 +43,6 @@ public class Player {
             return true;
         }
         return false;
-    }
-
-    public void showInfos() {
-        System.out.println("Player " + id + " has " + coin + " coins and " + ownedResources.size() + " resources");
-        for (Resource resource : ownedResources) {
-            System.out.println(resource);
-        }
     }
 
     public boolean gotThatResource(String resource) {
